@@ -1,0 +1,140 @@
+<html>
+<head>
+	<title> I Raid </title>
+	<style type=text/css >
+
+body
+{
+background-color: #F0FFFF;
+font-family: arial;verdana;helvetica;
+color:black;
+}
+
+h3
+{
+color: blue;
+padding: 10px;
+}
+h2
+{
+font-family:verdana;arial;helvetica;
+color:red;
+}
+#introduzione
+{
+}
+p
+{
+	text-align:justify;
+	padding: 10px;
+	}
+
+
+	</style>
+</head>
+	<body>
+	
+			<center><h2><u><g> I RAID E I CONTROLLI </u></g></h2>
+
+<p id="introduzione"> Acronimo di Redundant Array of Inexpensive Disk, insieme ridondante di dischi economici (o Redundant Array of Indipendent Disk,
+ insieme ridondante di dischi indipendenti), il RAID è una tecnologia informatica per il salvataggio delle stesse informazioni su piu' hard disk 
+ (e per questo ridondante). Salvando 	gli stessi dati su piu' dischi, le operazioni di I/O (Input/Output) possono sovrapporsi, garantendo quindi un 
+ miglioramento nelle prestazioni generali del 	sistema. Rispetto all'utilizzo di un singolo hard disk, il RAID garantisce anche una maggiore capacita' 
+ di salvataggio e un livello piu' elevato di affidabilita'. </p>
+
+
+
+
+<h3 align="left"> Raid 0</h3>	
+<p>
+Il sistema RAID 0 divide i dati equamente tra due o piu' dischi con nessuna informazione di parita' o ridondanza (operazione detta di striping). 
+Bisogna notare che il RAID-0 non era presente tra i livelli RAID originari, e che non è ridondante. RAID-0 E' usato generalmente per aumentare
+ le prestazioni di un sistema, anche se è' molto utile per creare un piccolo numero di grandi dischi virtuali da un grande numero di piccoli dischi fisici.
+  Sebbene il RAID-0 non sia indicato tra i livelli RAID originari, in un sistema ideale di tipo RAID-0 le operazioni di I/O si dividerebbero in blocchi di
+   dimensioni uguali e si applicherebbero equamente su tutti i dischi.
+Le implementazioni di sistemi RAID-0 su piu' di due dischi sono possibili, ma l'affidabilita' di un dato sistema RAID-0 è' uguale all'affidabilita' media
+ dei dischi diviso per il numero di dischi presenti. Quindi l'affidabilita', misurata come tempo medio tra due guasti (MTBF), è' inversamente 
+ proporzionale al numero degli elementi; cioe' un sistema di due dischi è' affidabile la meta' di un disco solo. La ragione per la quale questo 
+ succede, e' che il file system e' diviso tra tutti i dischi. Quando un drive si guasta, il file system non puo' gestire una perdita di dati cosi' grande
+  visto che i dati sono divisi tra tutti i dischi. I dati possono essere spesso recuperati con qualche strumento, anche se saranno sicuramente
+   incompleti e danneggiati.
+   
+   <center><img src="RAID_0.svg">
+</p>
+
+			<h3 align="left"> Raid 1</h3>
+<p>
+Il sistema RAID 1 crea una copia esatta di tutti i dati su due o piu' dischi.  utile nei casi in cui la ridondanza e' piu' importante che usare tutti i dischi 
+alla loro massima capacita': infatti il sistema puo' avere una capacita' massima pari a quella del disco piu' piccolo. In un sistema ideale, formato da 
+due dischi, l'affidabilita' aumenta di un fattore due rispetto al sistema a disco singolo, ma e' possibile avere piu' di una copia dei dischi. Poiche' ogni 
+disco puo' essere gestito autonomamente nel caso l'altro si guasti, l'affidabilita' aumenta linearmente al numero di dischi presenti. RAID-1 aumenta 
+anche le prestazioni in lettura, visto che molte implementazioni possono leggere da un disco mentre l'altro è occupato.
+Una pratica comune e' di creare un mirror extra di un disco (detto anche Business Continuance Volume o BCV) che puo' essere diviso dal sistema 
+RAID originario ed essere usato in maniera indipendente. In alcune implementazioni, questi mirror aggiuntivi possono essere divisi e aggiunti in 
+maniera incrementale, invece di richiedere una ricostruzione completa del RAID.
+
+<center><img src="RAID_1.svg">
+</p>
+
+			<h3 align="left"> Raid 3</h3>
+<p>
+Un sistema RAID 3 usa una divisione al livello di byte con un disco dedicato alla parita'. Il RAID-3 a' estremamente raro nella pratica. 
+Uno degli effetti
+ collaterali del RAID-3 e' che non puo' eseguire richieste multiple simultaneamente. Questo perche' ogni singolo blocco di dati ha la propria 
+ definizione
+  diffusa tra tutti i dischi del RAID e risiedera' nella stessa locazione, così ogni operazione di I/O richiede di usare tutti i dischi.
+Nell'esempio accanto, una richiesta per il blocco A richiedera' di cercare attraverso tutti i dischi. Una richiesta simultanea per il blocco B rimarra' 
+invece in attesa.
+
+<center><img src="RAID_3.svg">
+</p>
+
+			<h3 align="left"> Raid 4</h3>
+
+<p>
+Il sistema RAID 4 usa una divisione a livello di blocchi con un disco dedicato alla parita'. Il RAID-4 assomiglia molto al RAID-3 con l'eccezione che 
+divide i dati al livello di blocchi invece che al livello di byte. Questo permette ad ogni disco appartenente al sistema di operare in maniera 
+indipendente quando e' richiesto un singolo blocco. Se il controllore del disco lo permette, un sistema RAID-4 puo' servire diverse richieste di 
+lettura contemporaneamente. In lettura la capacita' di trasferimento e' paragonabile al RAID 0, la scrittura e' penalizzata(read-modify-write).
+Nell'esempio accanto, una richiesta al blocco A1 potrebbe essere evasa dal disco 1. Una richiesta simultanea al blocco B1 dovrebbe aspettare, 
+ma una richiesta al blocco B2 potrebbe essere servita allo stesso momento.
+
+<center><img src="RAID_4.svg">
+</p>
+		
+			<h3 align="left"> Raid 5</h3>
+<p>
+Un sistema RAID 5 usa una suddivisione dei dati a livello di blocco, distribuendo i dati di parita' uniformemente tra tutti i dischi che lo compongono. 
+una delle implementazioni piu' popolari, sia in software, sia in hardware, dove praticamente ogni dispositivo integrato di storage dispone del RAID-5 
+tra le sue opzioni.
+Nell'esempio sottostante, una richiesta al blocco A1 potrebbe essere evasa dal disco 1. Una simultanea richiesta per il blocco B1 dovrebbe aspettare, ma una richiesta simultanea per il blocco B2 potrebbe essere evasa in contemporanea.
+Ogni volta che un blocco di dati (chiamato delle volte chunk) deve essere scritto nel sistema di dischi, un blocco di parita' viene generato all'interno 
+della stripe. (Un blocco e' spesso composto da molti settori di disco, delle volte anche 256. Una serie di blocchi consecutivi e' chiamato stripe). 
+Se un altro blocco, o qualche porzione dello stesso blocco, è scritta nella stessa stripe, il blocco di parita' viene ricalcolato e riscritto. Il disco 
+usato per memorizzare le parita' viene modificato tra una stripe e la successiva; in questo modo si riescono a distribuire i blocchi di parita'.
+Bisogna notare che il blocco di parita' non viene letto quando si leggono i dati da disco, visto che sarebbero un sovraccarico non necessario e
+ diminuirebbe le prestazioni. Il blocco di parita' e' letto, invece, quando la lettura di un settore da' un errore CRC. In questo caso, il settore nella 
+ stessa posizione relativa nei blocchi di dati rimanenti della stripe, insieme al blocco di parita', vengono usati per ricostruire il blocco mancante. 
+ In questo modo l'errore di CRC viene nascosto al computer chiamante. Nella stessa maniera, se un disco dovesse danneggiarsi all'interno del 
+ sistema, i blocchi di parita' dei dischi rimanenti sono combinati matematicamente al volo con i blocchi dati rimasti per ricostruire i dati del disco 
+ guasto.
+ 
+ <center><img src="RAID_5.svg">
+</p>
+			<h3 align="left"> Raid 6</h3>
+
+<p>Un sistema RAID 6 usa una divisione a livello di blocchi con i dati di parita' distribuiti due volte tra tutti i dischi. Non era presente tra 
+i livelli RAID originari.
+Nel RAID-6, il blocco di parita' viene generato e distribuito tra due stripe di parita', su due dischi separati, usando differenti stripe di parita' nelle due direzioni.
+Il RAID-6 e' piu' ridondante del RAID-5, ma e' molto inefficiente quando viene usato in un numero limitato di dischi. Vedi la doppia parita', spiegata di 
+seguito, per una implementazione ancora piu' ridondante.
+
+<center><img src="RAID_6.svg">
+</p>
+
+
+
+	
+
+</body>
+</html>
